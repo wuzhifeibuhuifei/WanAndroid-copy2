@@ -6,7 +6,7 @@ import com.example.wanandroid_copy2.R
 import com.example.wanandroid_copy2.common.utils.toHtml
 import com.example.wanandroid_copy2.ui.article.data.Article
 
-class BaseHomeAdapter(layoutId: Int, list: List<Article>)
+class BaseHomeAdapter(layoutId: Int, list: List<Article>?)
     : BaseQuickAdapter<Article, BaseViewHolder>(layoutId, list) {
 
 

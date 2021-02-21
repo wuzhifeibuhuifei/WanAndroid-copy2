@@ -1,6 +1,8 @@
 package com.example.wanandroid_copy2
 
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
@@ -10,15 +12,27 @@ import com.example.wanandroid_copy2.common.constant.Constant
 import com.example.wanandroid_copy2.common.constant.Constant.HOME
 import com.example.wanandroid_copy2.common.utils.Preference
 import com.example.wanandroid_copy2.ui.home.view.HomeFragmentV2
+import com.example.wanandroid_copy2.ui.navigation.view.NavigationFragment
+import com.example.wanandroid_copy2.ui.system.view.SystemFragment
+import com.example.wanandroid_copy2.ui.wechat.view.WeChatFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var currentFragment: Fragment
-    private val homeFragment: Fragment by lazy {
+    private lateinit var currentFragment : Fragment
+    private val homeFragment : Fragment by lazy {
         HomeFragmentV2()
+    }
+    private val weChatFragment : Fragment by lazy {
+        WeChatFragment()
+    }
+    private val navigationFragment : NavigationFragment by lazy {
+        NavigationFragment()
+    }
+    private val systemFragment: SystemFragment by lazy {
+        SystemFragment()
     }
     private lateinit var headerView : View
     private var mUsername : String by Preference(Constant.USERNAME_KEY,"未登录")
@@ -135,18 +149,18 @@ class MainActivity : BaseActivity() {
             }
 
             Constant.WE_CHAT -> {
-//                setToolBar(toolbar,getString(R.string.navigation_wechat))
-//                changeFragment(weChatFragment)
+                setToolBar(toolbar,getString(R.string.navigation_wechat))
+                changeFragment(weChatFragment)
             }
 
             Constant.NAGIVATION -> {
-//                setToolBar(toolbar,getString(R.string.navigation_navigation))
-//                changeFragment(nagivationFragment)
+                setToolBar(toolbar,getString(R.string.navigation_navigation))
+                changeFragment(navigationFragment)
             }
 
             Constant.SYSTEM -> {
-//                setToolBar(toolbar,getString(R.string.navigation_system))
-//                changeFragment(systemFragment)
+                setToolBar(toolbar,getString(R.string.navigation_system))
+                changeFragment(systemFragment)
             }
 
             Constant.PROJECT -> {
@@ -177,5 +191,20 @@ class MainActivity : BaseActivity() {
     private fun defaultFragment() {
         currentFragment = homeFragment
         supportFragmentManager.beginTransaction().add(R.id.content, homeFragment).commit()
+    }
+
+    // 首页显示feb和底部菜单栏
+    fun onShow() {
+        fab.animate().translationX(0f).interpolator = AccelerateDecelerateInterpolator()
+        mNavigationBar.animate().translationY(0f).interpolator = AccelerateDecelerateInterpolator()
+    }
+
+    // 首页隐藏feb和底部菜单栏
+    fun onHide() {
+        val layoutParams = fab.layoutParams
+        val leftMargin = (layoutParams as ViewGroup.MarginLayoutParams).marginEnd
+        fab.animate().translationX(fab.width.toFloat() + leftMargin).interpolator = AccelerateDecelerateInterpolator()
+
+        mNavigationBar.animate().translationY(mNavigationBar.height.toFloat()).interpolator = AccelerateDecelerateInterpolator()
     }
 }

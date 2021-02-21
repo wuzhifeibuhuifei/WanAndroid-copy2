@@ -3,9 +3,15 @@ package com.example.wanandroid_copy2.common.api
 import com.example.wanandroid_copy2.common.BaseResponse
 import com.example.wanandroid_copy2.ui.home.data.model.BannerRsp
 import com.example.wanandroid_copy2.ui.home.data.model.HomeArticleRsp
+import com.example.wanandroid_copy2.ui.wechat.data.model.WeChatListRsp
+import com.example.wanandroid_copy2.ui.wechat.data.model.WeChatNameRsp
+import com.example.wanandroid_copy2.ui.navigation.data.NagivationCategoryRsp
+import com.kkaka.wanandroid.system.data.SystemAtricleRsp
+import com.kkaka.wanandroid.system.data.TopMenuRsp
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * @author Laizexin on 2019/12/2
@@ -62,25 +68,25 @@ interface ApiService {
      */
     @GET("/banner/json")
     fun getBanner(): Observable<BaseResponse<List<BannerRsp>>>
-//
-//    /**
-//     * 获取微信头
-//     */
-//    @GET("/wxarticle/chapters/json")
-//    fun getWeChat(): Observable<BaseResponse<List<WeChatNameRsp>>>
-//
-//    /**
-//     * 获取微信文章列表
-//     */
-//    @GET("/wxarticle/list/{id}/{page}/json")
-//    fun getWeChatList(@Path("id") id: Int, @Path("page") page: Int)
-//            : Observable<BaseResponse<WeChatListRsp>>
-//
-//    /**
-//     * 导航页面数据
-//     */
-//    @GET("/navi/json")
-//    fun getCategory(): Observable<BaseResponse<List<NagivationCategoryRsp>>>
+
+    /**
+     * 获取微信头
+     */
+    @GET("/wxarticle/chapters/json")
+    fun getWeChat(): Observable<BaseResponse<List<WeChatNameRsp>>>
+
+    /**
+     * 获取微信文章列表
+     */
+    @GET("/wxarticle/list/{id}/{page}/json")
+    fun getWeChatList(@Path("id") id: Int, @Path("page") page: Int)
+            : Observable<BaseResponse<WeChatListRsp>>
+
+    /**
+     * 导航页面数据
+     */
+    @GET("/navi/json")
+    fun getCategory(): Observable<BaseResponse<List<NagivationCategoryRsp>>>
 //
 //    /**
 //     * 搜索
@@ -94,17 +100,17 @@ interface ApiService {
 //    @GET("/hotkey/json")
 //    fun getHotKey(): Observable<BaseResponse<List<HotSearchRsp>>>
 //
-//    /**
-//     * 体系一级菜单
-//     */
-//    @GET("/tree/json")
-//    fun getTopMenu(): Observable<BaseResponse<List<TopMenuRsp>>>
-//
-//    /**
-//     * 获取体系文章列表
-//     */
-//    @GET("/article/list/{page}/json")
-//    fun getSystemArticles(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResponse<SystemAtricleRsp>>
+    /**
+     * 体系一级菜单
+     */
+    @GET("/tree/json")
+    fun getTopMenu(): Observable<BaseResponse<List<TopMenuRsp>>>
+
+    /**
+     * 获取体系文章列表
+     */
+    @GET("/article/list/{page}/json")
+    fun getSystemArticles(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResponse<SystemAtricleRsp>>
 //
 //    /**
 //     * 获取项目Tab
